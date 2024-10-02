@@ -1,0 +1,24 @@
+services:
+  api-gateway:
+    image: api-gateway
+    build:
+      context: ./Api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+
+  order-service:
+    image: order-service
+    build:
+      context: ./order-Service
+      dockerfile: Dockerfile
+
+
+
+  restful-api:
+    image: restful-api
+    build:
+      context: ./RESTful-Api
+      dockerfile: Dockerfile
+
+
