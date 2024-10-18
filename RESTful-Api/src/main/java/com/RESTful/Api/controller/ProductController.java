@@ -1,6 +1,7 @@
 package com.RESTful.Api.controller;
 
 import com.RESTful.Api.model.Product;
+import com.RESTful.Api.services.ProductMessageProducer;
 import com.RESTful.Api.services.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -26,6 +27,12 @@ public class ProductController {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
+    private final ProductMessageProducer producer;
+
+    public ProductController(ProductMessageProducer producer) {
+        this.producer = producer;
+    }
+
     @GetMapping
     public List<Product> getAllProducts() {
         return productService.getAllProducts();
@@ -33,7 +40,8 @@ public class ProductController {
 
     @PostMapping("/create")
     public Product createProduct(@Valid @RequestBody Product product) {
-       // rabbitTemplate.convertAndSend(queue, product);
+        rabbitTemplate.convertAndSend(queue, product);
+        System.out.println("Created product : " + queue);
         return productService.createProduct(product);
     }
 
@@ -53,5 +61,11 @@ public class ProductController {
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/send")
+    public String sendMessage(@RequestParam String message) {
+        producer.sendMessage(message);
+        return "Message sent: " + message;
     }
 }
