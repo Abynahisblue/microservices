@@ -7,6 +7,7 @@
         <option value="$PROJECT_DIR$/RESTful-Api/pom.xml" />
         <option value="$PROJECT_DIR$/order-Service/pom.xml" />
         <option value="$PROJECT_DIR$/Api-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/eureka-Service/pom.xml" />
       </list>
     </option>
   </component>

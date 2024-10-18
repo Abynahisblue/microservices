@@ -3,7 +3,9 @@ package com.RESTful.Api.controller;
 import com.RESTful.Api.model.Product;
 import com.RESTful.Api.services.ProductService;
 import jakarta.validation.Valid;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +16,15 @@ import java.util.List;
 @RequestMapping("/api/products")
 @Validated
 public class ProductController {
+
+    @Value("${rabbitmq.queue.name}")
+    private String queue;
+
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     @GetMapping
     public List<Product> getAllProducts() {
@@ -24,6 +33,7 @@ public class ProductController {
 
     @PostMapping("/create")
     public Product createProduct(@Valid @RequestBody Product product) {
+       // rabbitTemplate.convertAndSend(queue, product);
         return productService.createProduct(product);
     }
 

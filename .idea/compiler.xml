@@ -8,6 +8,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Api-gateway" />
+        <module name="order-Service" />
+        <module name="eureka-Service" />
+        <module name="RESTful-Api" />
       </profile>
     </annotationProcessing>
   </component>
@@ -15,6 +18,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Api-gateway" options="-parameters" />
       <module name="RESTful-Api" options="-parameters" />
+      <module name="eureka-Service" options="-parameters" />
       <module name="order-Service" options="-parameters" />
     </option>
   </component>
